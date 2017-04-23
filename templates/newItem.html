@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <main>
+        <h3>Add a new item to {{category.name}}.</h3>
+        <form method='post'>
+        <div class='base-row'>
+            <article class="base-article">
+              Name: <br> <input maxlength="250" size = "80" height = "40" type="text" name="newName">
+            </article>
+            <article class="base-article">
+              Description:
+                <br> <input maxlength="250" size = "80" type="text" name="newDescription">
+            </article>
+            <article class="base-article">
+              Price:
+                <br> <input maxlength="250" size = "80" type="text" name="newPrice">
+            </article>
+
+        </div>
+            <button type='submit' class="cancel-button" name='submit' value="cancel">Cancel</button>
+            <button type='submit' class="confirm-button" name='submit' value="confirm">Confirm</button>
+        </form>
+
+
+
+    </main>
+
+{% endblock %}

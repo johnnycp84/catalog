@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main>
+    <h3>Delete this category?</h3>
+    <article class=base-row>{{category.name}}</article>
+    <form method='post'>
+        <button type='submit' class="cancel-button" name='submit' value="cancel">Cancel</button>
+        <button type='submit' class="confirm-button" name='submit' value="confirm">Yes</button>
+    </form>
+</main>
+
+
+{% endblock %}

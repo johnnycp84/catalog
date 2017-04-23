@@ -1,0 +1,38 @@
+body {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 50px;
+        margin: auto;
+        width: 100%;
+        max-width: 1024px;
+
+}
+
+nav {
+    text-align: right;
+}
+
+._head {
+    text-align: center;
+    font-family: 'Montserrat Subrayada', sans-serif;
+    margin: auto;
+
+
+
+}
+
+.login {
+    font-size: 16px;
+    text-align: right;
+    color: black;
+}
+
+.adonis {
+    font-size: 10px;
+
+}
+
+.bigtitle {
+
+    border-bottom: solid mediumaquamarine 10px;
+
+}

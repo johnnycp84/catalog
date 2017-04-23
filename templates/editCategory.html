@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <main>
+        <h3>Edit this category.</h3>
+        <form method='post'>
+        <div class='base-row'>
+            <article class="base-article">
+              Category name: <br> <input maxlength="250" size = "80" height = "40" type="text" name="newName" value="{{category.name}}">
+            </article>
+            <article class="base-article">
+                Category description:
+                <br> <input maxlength="250" size = "80" type="text" name="newDescription" value="{{category.description}}">
+            </article>
+        </div>
+            <button type='submit' class="cancel-button" name='submit' value="cancel">Cancel</button>
+            <button type='submit' class="confirm-button" name='submit' value="confirm">Confirm edit</button>
+        </form>
+    </main>
+
+
+{% endblock %}
