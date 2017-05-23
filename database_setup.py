@@ -1,23 +1,25 @@
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Text, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.orm import backref
+import datetime
 
 Base = declarative_base()
 
 
-### setup tables
+### setup tables-------------
 
 class db_User(Base):
+    """The table for site users"""
+
 
     __tablename__ = 'db_user'
 
     id = Column(Integer, primary_key = True)
     name = Column(String(250), nullable = False)
     email = Column(String(250), nullable = False)
-    experience = Column(String(80), nullable = False)
 
     @property
     def serialize(self):
@@ -25,13 +27,12 @@ class db_User(Base):
         'id' : self.id,
         'name' : self.name,
         'email' :  self.email,
-        'experience' :  self.experience
         }
 
 
-
-
 class Category(Base):
+    """ defines the category table"""
+
 
     __tablename__ = 'category'
 
@@ -53,6 +54,7 @@ class Category(Base):
 
 
 class Item(Base):
+    """ defines the item table"""
 
     __tablename__ = 'catalog_items'
 
@@ -62,9 +64,6 @@ class Item(Base):
     price = Column(String(80))
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category, single_parent=True, backref=backref("catalog-items", cascade="all,delete"))
-     # show = db.relationship('Show',
-     #                       backref=db.backref('episodes', cascade="all, delete-orphan"),
-     #                       lazy='joined')
     user_id = Column(Integer, ForeignKey('db_user.id'))
     user = relationship(db_User)
 

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main>
+    <h3>You do not have permission to fiddle with this category</h3>
+    Take me <a href="{{url_for('showCategories')}}">home</a>
+    <br>
+    <br>
+    If you are the author, <a href="{{url_for('loginOther')}}">login</a> with the appropriate account
+</main>
+
+
+{% endblock %}

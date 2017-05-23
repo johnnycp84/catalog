@@ -2,10 +2,22 @@
 
 {% block content %}
 
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript">
+function shakeit(){
+    $('#shakediv').effect('shake', {times: 2, distance: 5, direction: 'right'},1);
+    $('#shakediv').effect('shake', {times: 2, distance: 5, direction: 'left'}),1;
+    }
+$(document).ready(function(){
+    setInterval(shakeit,200);
+});
+</script>
+
 <main>
     <h3>Delete this item from the {{category.name}} category?</h3>
-    <article class=base-row>{{item.name}}</article>
+    <article id = 'shakediv' class=base-row>{{item.name}}</article>
     <form method='post'>
+        <input name="STATE" type="hidden" value="{{ STATE }}">
         <button type='submit' class="cancel-button" name='submit' value="cancel">Cancel</button>
         <button type='submit' class="confirm-button" name='submit' value="confirm">Yes</button>
     </form>

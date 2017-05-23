@@ -1,38 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{category.name}}</title>
-</head>
-<body>
-    <h1>{{category.name}}</h1>
+{% extends "base.html" %}
 
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+{% block content %}
+    <div class='row grad center'>
+        <h1 class='center'>{{category.name}}</h1>
+    </div>
+    <div class="row grad2">
+        <p class='category-description'>{{category.description}}</p>
+    </div>
 
-    <h2>Items</h2>
+    <div class='row'>
+        <h2 class='col-6 item-title'>Blanks</h2>
+    </div>
 
-    <a href="{{url_for('newItem', category_id=category.id)}}">New item</a>
     {% for item in items %}
 
-    <ul>
-        Name: {{item.name}}
-        Description:  {{item.description}}
-        Price: {{item.price}}
-        <a href="{{url_for('editItem', category_id=category.id, item_id=item.id)}}">Edit Item</a>
-        <br>
-        <a href="{{url_for('deleteItem', category_id=category.id, item_id=item.id)}}">Delete</a>
+    <article class='item-article row'>
+        <p class="col-12 item-name">{{item.name}}
 
-    </ul>
+        {% if user_id == item.user_id %}
+            <a class='edit-link' href="{{url_for('editItem', category_id=category.id, item_id=item.id)}}">Edit</a>
+            <a class='edit-link' href="{{url_for('deleteItem', category_id=category.id, item_id=item.id)}}">Delete
+            </a>
 
+        {% endif %}
+        </p>
+        <p class='col-12 item-description'>{{item.description}}</p>
+        <p class='col-12 item-price'>Price: {{item.price}}</p>
+
+    </article>
     <br>
 
+
     {% endfor %}
-</body>
-</html>
+
+    <p class='newCat-link'>Don't see what you're looking for? <a href="{{url_for('newItem', category_id = category.id)}}" class="underlink newCat-link"> Add a new item</a></p>
+
+    {% endblock %}
