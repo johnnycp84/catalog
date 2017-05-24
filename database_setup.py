@@ -80,6 +80,6 @@ class Item(Base):
 
 
 ##### ending
-engine = create_engine('postgresql:///blanks')
+engine = create_engine('postgresql://catalog:catalog@localhost/blanks')
 #Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)

@@ -1,7 +1,7 @@
 import json
 import random
 import string
-
+import os
 import httplib2
 import requests
 from database_setup import Base, Category, Item, db_User
@@ -14,6 +14,13 @@ from oauth2client.client import flow_from_clientsecrets
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+def getClientSecrets_gg():
+	return os.path.join(APP_ROOT, "client_secrets_gg.json") 
+
+def getClientSecrets_fb():
+	return os.path.join(APP_ROOT, "fb_client_secrets.json")
+
 app = Flask(__name__)
 
 engine = create_engine('postgresql://catalog:catalog@localhost/blanks')
@@ -21,7 +28,7 @@ Base.metadata.bind = engine
 
 # google sign in globals
 CLIENT_ID = json.loads(
-    open('client_secrets_gg.json', 'r').read())['web']['client_id']
+    open(getClientSecrets_gg(), 'r').read())['web']['client_id']
 print 'CLIENT ID IS'
 APPLICATION_NAME = "Blanks By Manzanita"
 
@@ -106,10 +113,12 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets_gg.json', scope='')
+        oauth_flow = flow_from_clientsecrets(getClientSecrets_gg(), scope='')
         oauth_flow.redirect_uri = 'postmessage'
         oauth_flow.params['access_type'] = 'offline'
         credentials = oauth_flow.step2_exchange(code)
+	print 'the credentials are'
+	print credentials
     except FlowExchangeError:
         response = make_response(
             json.dumps('Failed to upgrade the authorization code.'), 401)
@@ -168,9 +177,10 @@ def gconnect():
     answer = requests.get(userinfo_url, params=params)
 
     data = answer.json()
-    credentials_json = credentials.to_json()
-    login_session['credentials'] = credentials_json
-    print credentials_json
+   # credentials_json = credentials.to_json()
+   # login_session['credentials'] = credentials_json
+   # print 'the login session is'
+    print login_session
     login_session['username'] = data['name']
     login_session['email'] = data['email']
     # ADD PROVIDER TO LOGIN SESSION
@@ -180,6 +190,8 @@ def gconnect():
     if not user_id:
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
+    print 'the login session is'
+    print login_session
 
     flash("You are now logged in as %s" % login_session['username'])
     print "done!"
@@ -229,9 +241,9 @@ def fbconnect():
 
     # Exchange client token for long-lived server-side token
     app_id = json.loads(
-        open('fb_client_secrets.json', 'r').read())['web']['app_id']
+        open(getClientSecrets_fb(), 'r').read())['web']['app_id']
     app_secret = json.loads(
-        open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+        open(getClientSecrets_fb(), 'r').read())['web']['app_secret']
     url = ('https://graph.facebook.com/v2.8/oauth/access_token?'
            'grant_type=fb_exchange_token&client_id=%s&client_secret=%s'
            '&fb_exchange_token=%s') % (app_id, app_secret, access_token)
@@ -315,7 +327,7 @@ def refreshToken():
     if 'provider' in login_session and login_session['provider'] != 'google':
         return 'no need to refresh token'
     refresh_token = login_session['refresh_token']
-    with open('client_secrets_gg.json') as json_file:
+    with open(getClientSecrets_gg()) as json_file:
         json_data = json.load(json_file)
     client_secret = json_data['web']['client_secret']
 

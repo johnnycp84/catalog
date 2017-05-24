@@ -1,12 +1,18 @@
 README
 
-UDACITY FULL-STACK NANODEGREE - PROJECT FIVE - ITEM CATALOG
+UDACITY FULL-STACK NANODEGREE - PROJECT SEVEN -DEPLOYMENT OF ITEM CATALOG
 JOHN JANNETTO
 
 INTRODUCTION:
 
 This application serves as an item catalog for foam surfboard blanks.  They are organised into categories, with each category having any number of items.  
 All parts of the site may be viewed by public, but to add, edit or delete categories and items users must sign in with either their Google or Facebook account.  
+
+The project has been deployed on Amazon LightSail:
+
+URL: http://ec2-54-236-4-187.compute-1.amazonaws.com/home/
+
+IP address of server:54.236.4.187
 
 Required libraries and dependencies:
 
@@ -16,11 +22,11 @@ Required libraries and dependencies:
 - datetime (python library)
 
 
-Contents of FSND-Virtual-Machine/vagrant:
+Contents of repositoryt:
 
-    pg_config.sh : VM config file (from Udacity)
-    Vagrantfile (from udacity)
+  
     Catalog directory:
+	- __init__.py : main application (a modified of development app webserver.py
 	- webserver.py : main web server file that you run through vagrant machine
 	- database_setup.py : contains table descriptions for database
 	- client_secrets_gg.json : contains client id and secret for google sign-in
@@ -33,34 +39,15 @@ Contents of FSND-Virtual-Machine/vagrant:
 
 Installation Instructions:
 
-    1. Make sure you have Vagrant virtual machine installed on your host computer
+    1. Make sure you have a computer with an internet connection and modern web browser
 
-    2. Download the zip file into your preferred directory on you host computer
-
-    3. cd into /vagrant/catalog
-
-    4.  Power on the virtual machine:
-        - cd to /FSND-Virtual-Machine/vagrant/tournament folder
-        - in the CLI, type "vagrant up" to power on the virtual machine
-        - then type "vagrant ssh" which logs into the machine
-        - if all working, the CLI should read something like this: vagrant@vagrant-ubuntu-trusty-32:/vagrant/tournament$
-        - if not, see this guide for more details:
-        https://docs.google.com/document/d/16IgOm4XprTaKxAa8w02y028oBECOoB1EI1ReddADEeY/pub?embedded=true
-
-    6. Create the database in psql
-        - From the command line, type "psql"
-        - type “CREATE DATABASE blanks;”
-	- exit the psql CLI by typing \q and then ENTER
-
-    7.  Make sure you have either a Facebook or Google account
+    2.  Make sure you have either a Facebook or Google account
 
 
 Operating Instructions:
 
 
-    1. Run webserver.py
-        - Now that you're back in the VM CLI ("trusty etc") type "python webserver.py"
-        - Next go “http://localhost:8000/home on your web-browser 
+    1. Go to this URL:http://ec2-54-236-4-187.compute-1.amazonaws.com/home/
 
     2.  To create a category, first login (upper right corner)
  
@@ -68,6 +55,15 @@ Operating Instructions:
 
     4.  Note that you can only modify those categories and items that you have created.  
 
+Project Notes:
+
+ - Server has Ubuntu 16.04.2.  Web server is Apache/2.4.18 and application handleris mod-wsgi.  Database server is Postgresql 9.5
+ - Flask 0.10.1 was used as the framework for this project
+ - Security:
+	- password authentification through remote login disabled
+	- remote login by root user disabled
+	- firewall in place (ufw) 
+ - __init__.py was modified : secret key removed, absolute file path functions created to read API client secret JSON files
 
 
 Licensing:
