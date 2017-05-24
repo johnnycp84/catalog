@@ -64,7 +64,7 @@ Project Notes:
 	- remote login by root user disabled
 	- firewall in place (ufw) 
  - __init__.py was modified : secret key removed, absolute file path functions created to read API client secret JSON files
-
+ - git directory hidden (apache2 conf file edited)
 
 Licensing:
 
